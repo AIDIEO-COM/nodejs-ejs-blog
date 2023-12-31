@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="<%=url%>/output.css">
+</head>
+
+<body>
+    <div class="register w-screen h-screen bg-slate-300 flex justify-center items-center">
+        <div class="w-[350px] px-8 py-6 bg-white rounded-md shadow-sm ">
+            <h2 class="text-2xl font-bold text-center text-slate-500">Login</h2>
+
+            <form action="">
+                <div class="flex flex-col gap-1 mb-3">
+                    <label for="email" class="text-slate-500">Email</label>
+                    <input type="email" name="email" id="email" required
+                        class="px-3 py-2 outline-0 border border-stale-500 bg-[#f9f9f9] rounded focus:border-teal-400" />
+                </div>
+
+                <div class="flex flex-col gap-1 mb-5">
+                    <label for="password" class="text-slate-500">Password</label>
+                    <input type="password" name="password" id="password" required
+                        class="px-3 py-2 outline-0 border border-stale-500 bg-[#f9f9f9] rounded focus:border-teal-400" />
+                </div>
+
+                <button type="submit"
+                    class="px-5 w-full py-2 text-white rounded-sm bg-teal-700 hover:bg-teal-600 transition-all duration-300 ease-in-out">Login</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
