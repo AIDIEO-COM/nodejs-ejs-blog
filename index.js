@@ -5,16 +5,22 @@
 
 // Set up express, bodyparser and EJS
 const express = require('express');
+const morgan = require('morgan');
 const path = require('path');
 const config = require('./utils/config');
 
 const app = express();
 var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(morgan("dev"));
 
-app.set('views', path.join(__dirname, 'views')); // set the app to use ejs for rendering
-app.set('view engine', 'ejs'); // set the app to use ejs for rendering
-app.use(express.static(path.join(__dirname, 'public'))); // set location of static files
+// set ejs
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+// set static files
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Set up SQLite
 // Items in the global namespace are accessible throught out the node application
@@ -38,10 +44,15 @@ global.db = new sqlite3.Database('./database.db', function (err) {
 const usersRoutes = require('./routes/users');
 const loginRoutes = require('./routes/login');
 const dashboardRoutes = require('./routes/dashboard');
+const categoryRouter = require('./routes/categoryRouter');
 
+// ejs routes
 app.use('/', loginRoutes);
 app.use('/', dashboardRoutes);
 app.use('/users', usersRoutes);
+
+// api routes
+app.use('/api/v1/', categoryRouter);
 
 
 // Make the web application listen for HTTP requests
