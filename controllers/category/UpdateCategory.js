@@ -19,26 +19,28 @@ const UpdateCategory = async (req, res) => {
             }
 
             if (this.changes === 0) {
-                return res.json({
-                    status: 300,
+                req.session.message = {
                     success: false,
-                    error: {
-                        message: "Category not found or no changes made",
-                    },
-                });
+                    type: 'error',
+                    message: 'Category not found or no changes made!'
+                }
+                return res.redirect(`/category/edit/${categoryId}`);
             }
 
-            return res.json({
-                status: 200,
+            req.session.message = {
                 success: true,
-                message: "Category updated successfully",
-            });
+                type: 'success',
+                message: 'Category updated successfully!'
+            }
+            return res.redirect(`/category/edit/${categoryId}`);
         });
     } catch (error) {
-        return res.json({
-            status: 400,
+        req.session.message = {
             success: false,
-        });
+            type: 'error',
+            message: 'Internal server error!'
+        }
+        res.redirect(`/category/edit/${categoryId}`);
     }
 };
 

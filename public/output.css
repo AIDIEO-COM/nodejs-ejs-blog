@@ -1015,6 +1015,11 @@ video {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
+.text-error {
+  --tw-text-opacity: 1;
+  color: rgb(211 15 15 / var(--tw-text-opacity));
+}
+
 .no-underline {
   text-decoration-line: none;
 }

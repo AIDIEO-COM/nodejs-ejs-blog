@@ -1,5 +1,3 @@
-
-
 const GetCategory = async (req, res) => {
     const categoryId = req.params.id;
 
@@ -8,24 +6,12 @@ const GetCategory = async (req, res) => {
 
         global.db.get(sql, [categoryId], (err, row) => {
             if (err) {
-                return res.json({
-                    status: 300,
+                req.session.message = {
                     success: false,
-                    error: {
-                        code: "SQLITE_ERROR",
-                        message: err.message,
-                    },
-                });
-            }
-
-            if (!row) {
-                return res.json({
-                    status: 300,
-                    success: false,
-                    error: {
-                        message: "Category not found",
-                    },
-                });
+                    type: 'error',
+                    message: err.message,
+                }
+                return res.redirect(`/category/edit/${categoryId}`);
             }
 
             return res.json({
@@ -35,10 +21,12 @@ const GetCategory = async (req, res) => {
             });
         });
     } catch (error) {
-        return res.json({
-            status: 400,
+        req.session.message = {
             success: false,
-        });
+            type: 'error',
+            message: 'Internal server error!'
+        }
+        return res.redirect(`/category/edit/${categoryId}`);
     }
 };
 

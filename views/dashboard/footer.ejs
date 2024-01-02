@@ -1,0 +1,20 @@
+<script type="">
+    //Javascript to toggle the menu
+    document.getElementById('nav-toggle').onclick = function () {
+        document.getElementById("nav-content").classList.toggle("hidden");
+    }
+
+    // hide the error message after 5s
+    setTimeout(function() {
+        document.getElementById("errorMessage").style.display = "none";
+    }, 5000); 
+
+    // hide the success message after 5s
+    setTimeout(function() {
+        document.getElementById("successMessage").style.display = "none";
+    }, 5000); 
+</script>
+
+</body>
+
+</html>

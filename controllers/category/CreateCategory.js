@@ -7,14 +7,6 @@ const CreateCategory = async (req, res) => {
 
         global.db.run(sql, [name], (err) => {
             if (err) {
-                // return res.json({
-                //     status: 300,
-                //     success: false,
-                //     error: {
-                //         code: "SQLITE_ERROR",
-                //         message: err.message,
-                //     },
-                // });
                 req.session.message = {
                     success: false,
                     type: 'error',
@@ -23,12 +15,6 @@ const CreateCategory = async (req, res) => {
                 return res.redirect('/categories');
             }
 
-            // const newCategory = response.data;
-
-            // return res.json({
-            //     status: 200,
-            //     success: true,
-            // });
             req.session.message = {
                 success: true,
                 type: 'success',
@@ -37,10 +23,6 @@ const CreateCategory = async (req, res) => {
             res.redirect('/categories');
         });
     } catch (error) {
-        // return res.json({
-        //     status: 400,
-        //     success: false,
-        // });
         req.session.message = {
             success: false,
             type: 'error',

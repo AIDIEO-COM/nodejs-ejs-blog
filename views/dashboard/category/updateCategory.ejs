@@ -1,0 +1,44 @@
+<%- include('../header.ejs') -%>
+
+<%- include('../navbar.ejs') -%>
+
+<div class="container mt-8 md:mt-24">
+  <div class="px-8 py-6 bg-white rounded-md shadow-sm ">
+
+    <div class="">
+
+      <div>
+        <% if(message && message.success) { %>
+        <p id="successMessage" class="text-white bg-success w-full p-2 rounded-md mb-3">
+          <%= message.message %>
+        </p>
+        <% } %>
+
+        <% if(message && !message.success) { %>
+        <p id="errorMessage" class="text-white bg-error w-full p-2 rounded-md mb-3">
+          <%= message.message %>
+        </p>
+        <% } %>
+      </div>
+
+      <% if(!data){ %>
+      <p class="text-center text-error py-2">No category available</p>
+      <% } else { %>
+      <form action="/api/v1/category/update/<%= data.id %>" method="post" class="bg-slate-200 p-4 rounded-md">
+        <div class="flex flex-col gap-1 mb-3">
+          <label for="name" class="text-slate-500">Category Name</label>
+          <input type="text" name="name" id="name" required value="<%= data.name %>" class="px-3 py-2 outline-0 border border-stale-500 bg-[#f9f9f9] rounded focus:border-primary-400" />
+        </div>
+
+        <button type="submit" class="px-5 w-full py-2 text-white rounded-sm bg-primary-700 hover:bg-primary transition-all duration-300 ease-in-out">
+          Update Category
+        </button>
+      </form>
+      <% } %>
+
+    </div>
+
+  </div>
+</div>
+
+<%- include('../footer.ejs') -%>
