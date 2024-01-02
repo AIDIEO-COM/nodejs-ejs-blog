@@ -15,3 +15,23 @@
 .trans {
     @apply transition ease-in-out duration-300;
 }
+
+.toast {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+    z-index: 999;
+    display: none;
+}
+
+.toast.success {
+    background-color: #4CAF50;
+}
+
+.toast.error {
+    background-color: #f44336;
+}

@@ -8,12 +8,26 @@ const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
 const config = require('./utils/config');
+const session = require("express-session")
 
 const app = express();
 var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(morgan("dev"));
+
+// session setup
+app.use(session({
+    secret: 'my secret key',
+    saveUninitialized: true,
+    resave: false
+}))
+
+app.use((req, res, next) => {
+    res.locals.message = req.session.message;
+    delete req.session.message;
+    next();
+})
 
 // set ejs
 app.set('views', path.join(__dirname, 'views'));
