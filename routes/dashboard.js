@@ -11,7 +11,6 @@ router.get("/dashboard", (req, res) => {
     });
 });
 
-
 // category view page
 router.get("/categories", async (req, res) => {
     try {
@@ -41,6 +40,39 @@ router.get("/category/edit/:id", async (req, res) => {
             url: req.protocol + "://" + req.headers.host,
             title: 'Dashboard | Edit Category',
             data: apiData.data
+        });
+    } catch (error) {
+        console.error('Error fetching data from API:', error.message);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+// posts view page
+router.get("/blogs", async (req, res) => {
+    try {
+        // Render the EJS template and pass data to it
+        res.render("dashboard/blog/blogs.ejs", {
+            url: req.protocol + "://" + req.headers.host,
+            title: 'Dashboard | Blogs',
+        });
+    } catch (error) {
+        console.error('Error fetching data from API:', error.message);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+// add blog view page
+router.get("/blog/add", async (req, res) => {
+    try {
+
+        const response = await axios.get(`${config.URL}api/v1/category`);
+        const apiData = response.data;
+
+        // Render the EJS template and pass data to it
+        res.render("dashboard/blog/addBlog.ejs", {
+            url: req.protocol + "://" + req.headers.host,
+            title: 'Dashboard | Add Blog',
+            categories: apiData.data
         });
     } catch (error) {
         console.error('Error fetching data from API:', error.message);

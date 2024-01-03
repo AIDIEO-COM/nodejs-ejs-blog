@@ -6,14 +6,12 @@ const DeleteCategory = async (req, res) => {
 
         global.db.run(sql, [categoryId], function (err) {
             if (err) {
-                return res.json({
-                    status: 300,
+                req.session.message = {
                     success: false,
-                    error: {
-                        code: "SQLITE_ERROR",
-                        message: err.message,
-                    },
-                });
+                    type: 'error',
+                    message: err.message,
+                }
+                return res.redirect('/categories');
             }
 
             if (this.changes === 0) {
@@ -26,17 +24,20 @@ const DeleteCategory = async (req, res) => {
                 });
             }
 
-            return res.json({
-                status: 200,
+            req.session.message = {
                 success: true,
-                message: "Category deleted successfully",
-            });
+                type: 'success',
+                message: 'Category deleted successfully!'
+            }
+            res.redirect('/categories');
         });
     } catch (error) {
-        return res.json({
-            status: 400,
+        req.session.message = {
             success: false,
-        });
+            type: 'error',
+            message: 'Internal server error!'
+        }
+        res.redirect('/categories');
     }
 };
 

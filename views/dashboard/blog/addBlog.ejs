@@ -1,0 +1,86 @@
+<%- include('../header.ejs') -%>
+
+    <%- include('../navbar.ejs') -%>
+
+        <div class="container mt-8 md:mt-24">
+            <div class="px-8 py-6 bg-white rounded-md shadow-sm ">
+
+
+                <div class="flex justify-between items-center w-full my-3">
+                    <p class="ml-3 text-[22px] text-slate-500">Add Blog</p>
+
+                    <a href="/blogs" class="bg-primary px-3 py-1 text-white rounded-md">View Blogs</a>
+                </div>
+
+                <hr />
+
+                <div class="mt-3">
+
+                    <div>
+                        <% if(message && message.success) { %>
+                            <p id="successMessage" class="text-white bg-success w-full p-2 rounded-md mb-3">
+                                <%= message.message %>
+                            </p>
+                            <% } %>
+
+                                <% if(message && !message.success) { %>
+                                    <p id="errorMessage" class="text-white bg-error w-full p-2 rounded-md mb-3">
+                                        <%= message.message %>
+                                    </p>
+                                    <% } %>
+                    </div>
+
+                    <form action="/api/v1/blog" method="post" enctype="multipart/form-data"
+                        class="bg-slate-200 p-4 rounded-md">
+
+                        <div class="flex flex-col gap-1 mb-3">
+                            <label for="title" class="text-slate-500">Title</label>
+                            <input type="text" name="title" id="title" required
+                                class="px-3 py-2 outline-0 border border-stale-500 bg-[#f9f9f9] rounded focus:border-primary-400" />
+                        </div>
+
+                        <div class="flex flex-col gap-1 mb-3">
+                            <label for="author" class="text-slate-500">Author</label>
+                            <input type="text" name="author" id="author" required
+                                class="px-3 py-2 outline-0 border border-stale-500 bg-[#f9f9f9] rounded focus:border-primary-400" />
+                        </div>
+
+                        <div class="flex flex-col gap-1 mb-3">
+                            <label for="category_id" class="text-slate-500">Select Category</label>
+                            <select name="category_id" id="category_id" required
+                                class="px-3 py-2 outline-0 border border-stale-500 bg-[#f9f9f9] rounded focus:border-primary-400">
+                                <option value="">
+                                    Select a category
+                                </option>
+                                <% categories.forEach(category=> { %>
+                                    <option value="<%= category.id %>">
+                                        <%= category.name %>
+                                    </option>
+                                    <% }); %>
+                            </select>
+                        </div>
+
+                        <div class="flex flex-col gap-1 mb-3">
+                            <label for="description" class="text-slate-500">Description</label>
+                            <textarea name="description" id="editor" class="editor"></textarea>
+                        </div>
+
+
+
+                        <div class="flex flex-col gap-1 mb-3">
+                            <label for="image" class="text-slate-500">Select Image</label>
+                            <input type="file" name="image" id="image" required
+                                class="px-3 py-2 outline-0 border border-stale-500 bg-[#f9f9f9] rounded focus:border-primary-400" />
+                        </div>
+
+                        <button type="submit"
+                            class="px-5 w-full py-2 text-white rounded-sm bg-primary-700 hover:bg-primary transition-all duration-300 ease-in-out">
+                            Add Blog
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+        <%- include('../footer.ejs') -%>

@@ -59,6 +59,7 @@ const usersRoutes = require('./routes/users');
 const loginRoutes = require('./routes/login');
 const dashboardRoutes = require('./routes/dashboard');
 const categoryRouter = require('./routes/categoryRouter');
+const blogRouter = require('./routes/postRouter');
 
 // ejs routes
 app.use('/', loginRoutes);
@@ -67,6 +68,7 @@ app.use('/users', usersRoutes);
 
 // api routes
 app.use('/api/v1/', categoryRouter);
+app.use('/api/v1/', blogRouter);
 
 
 // Make the web application listen for HTTP requests

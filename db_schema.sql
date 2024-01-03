@@ -10,6 +10,8 @@ BEGIN TRANSACTION;
 --         name TEXT UNIQUE
 --     );
 
-SELECT * FROM category;
+-- SELECT * FROM category;
+
+SELECT * FROM blog;
 
 COMMIT;
