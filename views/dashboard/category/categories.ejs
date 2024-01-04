@@ -39,9 +39,9 @@
                                                                         class="bg-warning-hover px-3 py-1 text-white rounded-md hover:bg-warning trans">
                                                                         Edit
                                                                     </a>
-                                                                    <!-- deleteCategory(<%= item.id %>) -->
                                                                     <button id="catDeleteBtn<%= item.id %>"
-                                                                        type="button" onclick=""
+                                                                        type="button"
+                                                                        onclick="deleteCategory(`<%= item.id %>`)"
                                                                         class="bg-error-hover px-3 py-1 text-white rounded-md hover:bg-error trans">
                                                                         Delete
                                                                     </button>
@@ -124,11 +124,6 @@
 
             </div>
         </div>
-
-        <!-- <script>
-        
-        </script> -->
-
 
 
         <%- include('../footer.ejs') -%>

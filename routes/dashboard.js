@@ -19,6 +19,8 @@ router.get("/categories", async (req, res) => {
         const response = await axios.get(`${config.URL}api/v1/category`);
         const apiData = response.data;
 
+        // const
+
         // Render the EJS template and pass data to it
         res.render("dashboard/category/categories.ejs", {
             url: req.protocol + "://" + req.headers.host,
@@ -49,7 +51,7 @@ router.get("/category/edit/:id", async (req, res) => {
     }
 });
 
-// posts view page
+// blogs view page
 router.get("/blogs", async (req, res) => {
     try {
 
@@ -89,5 +91,26 @@ router.get("/blog/add", async (req, res) => {
     }
 });
 
+// category update page
+router.get("/blog/edit/:id", async (req, res) => {
+    try {
+        const response = await axios.get(`${config.URL}api/v1/blog/${req.params.id}`);
+        const apiData = response.data;
+
+        const responseCat = await axios.get(`${config.URL}api/v1/category`);
+        const apiDataCat = responseCat.data;
+
+        // Render the EJS template and pass data to it
+        res.render("dashboard/blog/updateBlog.ejs", {
+            url: req.protocol + "://" + req.headers.host,
+            title: 'Dashboard | Edit Blog',
+            data: apiData.data,
+            categories: apiDataCat.data
+        });
+    } catch (error) {
+        console.error('Error fetching data from API:', error.message);
+        res.status(500).send('Internal Server Error');
+    }
+});
 
 module.exports = router;

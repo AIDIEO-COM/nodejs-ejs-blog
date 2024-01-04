@@ -4,6 +4,7 @@ const CreateBlog = require("../controllers/blog/CreateBlog");
 const router = express.Router();
 const path = require('path');
 const GetBlogs = require("../controllers/blog/GetBlogs");
+const GetBlog = require("../controllers/blog/GetBlog");
 
 // Create the 'post' table if it doesn't exist
 global.db.run(`
@@ -33,11 +34,11 @@ let upload = multer({
 }).single("image")
 
 
-// create a post
+// create a blog
 router.post("/blog", upload, CreateBlog);
 
-// get single category
-// router.get("/category/:id", GetCategory);
+// get single blog
+router.get("/blog/:id", GetBlog);
 
 // get all blogs
 router.get("/blog", GetBlogs);

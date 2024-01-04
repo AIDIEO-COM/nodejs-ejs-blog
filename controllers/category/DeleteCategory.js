@@ -29,7 +29,7 @@ const DeleteCategory = async (req, res) => {
                 type: 'success',
                 message: 'Category deleted successfully!'
             }
-            res.redirect('/categories');
+            return res.redirect('/categories');
         });
     } catch (error) {
         req.session.message = {
