@@ -30,55 +30,83 @@
                                     <% } %>
                     </div>
 
-                    <form action="/api/v1/blog" method="post" enctype="multipart/form-data"
-                        class="bg-slate-200 p-4 rounded-md">
+                    <% if(!data){ %>
+                        <p class="text-center text-error py-2">No category available</p>
+                        <% } else { %>
+                            <form action="/api/v1/blog/update/<%= data.id %>" method="post"
+                                enctype="multipart/form-data" class="bg-slate-200 p-4 rounded-md">
 
-                        <div class="flex flex-col gap-1 mb-3">
-                            <label for="title" class="text-slate-500">Title</label>
-                            <input type="text" name="title" id="title" required
-                                class="px-3 py-2 outline-0 border border-stale-500 bg-[#f9f9f9] rounded focus:border-primary-400" />
-                        </div>
+                                <div class="flex flex-col gap-1 mb-3">
+                                    <label for="title" class="text-slate-500">Title</label>
+                                    <input type="text" name="title" id="title" required value="<%= data.title %>"
+                                        class="px-3 py-2 outline-0 border border-stale-500 bg-[#f9f9f9] rounded focus:border-primary-400" />
+                                </div>
 
-                        <div class="flex flex-col gap-1 mb-3">
-                            <label for="author" class="text-slate-500">Author</label>
-                            <input type="text" name="author" id="author" required
-                                class="px-3 py-2 outline-0 border border-stale-500 bg-[#f9f9f9] rounded focus:border-primary-400" />
-                        </div>
+                                <div class="flex flex-col gap-1 mb-3">
+                                    <label for="author" class="text-slate-500">Author</label>
+                                    <input type="text" name="author" id="author" required value="<%= data.author %>"
+                                        class="px-3 py-2 outline-0 border border-stale-500 bg-[#f9f9f9] rounded focus:border-primary-400" />
+                                </div>
+                                <div class="flex flex-col gap-1 mb-3">
+                                    <label for="category_id" class="text-slate-500">Select Category</label>
+                                    <select name="category_id" id="category_id" required
+                                        class="px-3 py-2 outline-0 border border-stale-500 bg-[#f9f9f9] rounded focus:border-primary-400">
 
-                        <div class="flex flex-col gap-1 mb-3">
-                            <label for="category_id" class="text-slate-500">Select Category</label>
-                            <select name="category_id" id="category_id" required
-                                class="px-3 py-2 outline-0 border border-stale-500 bg-[#f9f9f9] rounded focus:border-primary-400">
-                                <option value="">
-                                    Select a category
-                                </option>
-                                <% categories.forEach(category=> { %>
-                                    <option value="<%= category.id %>">
-                                        <%= category.name %>
-                                    </option>
-                                    <% }); %>
-                            </select>
-                        </div>
+                                        <% categories.forEach(category=> { %>
+                                            <option value="<%= category.id %>" <% if (category.id==data.category_id) {
+                                                %> selected <% } %>>
+                                                    <%= category.name %>
+                                            </option>
+                                            <% }); %>
+                                    </select>
+                                </div>
+                                <div class="flex flex-col gap-1 mb-3">
+                                    <label for="description" class="text-slate-500">Description</label>
+                                    <textarea name="description" id="editor" class="editor"></textarea>
+                                </div>
 
-                        <div class="flex flex-col gap-1 mb-3">
-                            <label for="description" class="text-slate-500">Description</label>
-                            <textarea name="description" id="editor" class="editor"></textarea>
-                        </div>
+                                <div class=" flex flex-col gap-1 mb-3">
+                                    <label for="image" class="text-slate-500">Select Image</label>
+                                    <input type="file" name="image" id="image"
+                                        class="px-3 py-2 outline-0 border border-stale-500 bg-[#f9f9f9] rounded focus:border-primary-400" />
+                                </div>
 
-                        <div class="flex flex-col gap-1 mb-3">
-                            <label for="image" class="text-slate-500">Select Image</label>
-                            <input type="file" name="image" id="image" required
-                                class="px-3 py-2 outline-0 border border-stale-500 bg-[#f9f9f9] rounded focus:border-primary-400" />
-                        </div>
+                                <button type="submit"
+                                    class="px-5 w-full py-2 text-white rounded-sm bg-primary-700 hover:bg-primary transition-all duration-300 ease-in-out">
+                                    Update Blog
+                                </button>
+                            </form>
+                            <% } %>
 
-                        <button type="submit"
-                            class="px-5 w-full py-2 text-white rounded-sm bg-primary-700 hover:bg-primary transition-all duration-300 ease-in-out">
-                            Add Blog
-                        </button>
-                    </form>
                 </div>
 
             </div>
         </div>
+
+        <script>
+            // Wait for the DOM to be ready
+            document.addEventListener('DOMContentLoaded', (event) => {
+                // Check if CKEditor instance already exists
+                if (typeof ClassicEditor !== 'undefined') {
+                    ClassicEditor
+                        .create(document.querySelector('#editor'))
+                        .then(editor => {
+                            // Assuming 'data.content' contains the initial content
+                            editor.setData(`<%= convert(data.content) %>`);
+
+                            const children = document.querySelectorAll('.ck-editor');
+
+                            // Check if there are more than one child elements
+                            if (children.length > 1) {
+                                // Hide the second child (index 1, as indexing starts from 0)
+                                children[1].style.display = 'none';
+                            }
+                        })
+                        .catch(error => {
+                            console.error(error);
+                        });
+                }
+            });
+        </script>
 
         <%- include('../footer.ejs') -%>

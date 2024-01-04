@@ -5,6 +5,7 @@ const router = express.Router();
 const path = require('path');
 const GetBlogs = require("../controllers/blog/GetBlogs");
 const GetBlog = require("../controllers/blog/GetBlog");
+const UpdateBlog = require("../controllers/blog/UpdateBlog");
 
 // Create the 'post' table if it doesn't exist
 global.db.run(`
@@ -44,7 +45,7 @@ router.get("/blog/:id", GetBlog);
 router.get("/blog", GetBlogs);
 
 // // update category
-// router.post("/category/update/:id", UpdateCategory);
+router.post("/blog/update/:id", upload, UpdateBlog);
 
 // // update category
 // router.post("/category/delete/:id", DeleteCategory);

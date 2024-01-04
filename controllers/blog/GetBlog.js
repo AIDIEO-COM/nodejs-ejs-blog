@@ -2,7 +2,12 @@ const GetBlog = async (req, res) => {
     const blogId = req.params.id;
 
     try {
-        const sql = "SELECT * FROM blog WHERE id = ?";
+        const sql = `
+        SELECT blog.*, category.name AS category_name
+        FROM blog
+        INNER JOIN category ON blog.category_id = category.id
+        WHERE blog.id = ?
+    `;
 
         global.db.get(sql, [blogId], (err, row) => {
             if (err) {

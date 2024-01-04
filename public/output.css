@@ -702,6 +702,14 @@ video {
   height: 100vh;
 }
 
+.h-\[300px\] {
+  height: 300px;
+}
+
+.h-\[200px\] {
+  height: 200px;
+}
+
 .w-16 {
   width: 4rem;
 }
@@ -1081,6 +1089,11 @@ video {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.text-primary {
+  --tw-text-opacity: 1;
+  color: rgb(102 103 152 / var(--tw-text-opacity));
 }
 
 .no-underline {

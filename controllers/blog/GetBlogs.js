@@ -1,7 +1,11 @@
 
 const GetBlogs = async (req, res) => {
     try {
-        const sql = "SELECT * FROM blog";
+        const sql = `
+        SELECT blog.*, category.name AS category_name
+        FROM blog
+        INNER JOIN category ON blog.category_id = category.id
+    `;
 
         global.db.all(sql, [], (err, rows) => {
             if (err) {

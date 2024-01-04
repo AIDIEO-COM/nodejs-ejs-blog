@@ -19,8 +19,6 @@ router.get("/categories", async (req, res) => {
         const response = await axios.get(`${config.URL}api/v1/category`);
         const apiData = response.data;
 
-        // const
-
         // Render the EJS template and pass data to it
         res.render("dashboard/category/categories.ejs", {
             url: req.protocol + "://" + req.headers.host,
@@ -100,12 +98,15 @@ router.get("/blog/edit/:id", async (req, res) => {
         const responseCat = await axios.get(`${config.URL}api/v1/category`);
         const apiDataCat = responseCat.data;
 
+        console.log(apiData.data);
+
         // Render the EJS template and pass data to it
         res.render("dashboard/blog/updateBlog.ejs", {
             url: req.protocol + "://" + req.headers.host,
             title: 'Dashboard | Edit Blog',
             data: apiData.data,
-            categories: apiDataCat.data
+            categories: apiDataCat.data,
+            convert: convert
         });
     } catch (error) {
         console.error('Error fetching data from API:', error.message);
