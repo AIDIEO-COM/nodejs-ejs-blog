@@ -68,7 +68,8 @@
                                                         class="bg-warning-hover px-3 py-1 text-white rounded-md hover:bg-warning trans">
                                                         Edit
                                                     </a>
-                                                    <button id="blogDeleteBtn<%= item.id %>" type="button" onclick=""
+                                                    <button id="blogDeleteBtn<%= item.id %>" type="button"
+                                                        onclick="deleteBlog(`<%= item.id %>`)"
                                                         class="bg-error-hover px-3 py-1 text-white rounded-md hover:bg-error trans">
                                                         Delete
                                                     </button>

@@ -46,6 +46,31 @@
                     alert('Deletion canceled.');
                 }
             }
+
+    async function deleteBlog(id) {
+                const confirmDelete = window.confirm('Are you sure you want to delete this blog?');
+
+                if (confirmDelete) {
+                    try {
+                        const response = await fetch(`<%=url%>/api/v1/blog/delete/${id}`, {
+                            method: 'POST'
+                        });
+
+                        if (response.ok) {
+                            alert('Blog deleted successfully.');
+                            location.reload(); // Optional: Update the UI without reloading the page
+                        } else {
+                            const errorMessage = await response.text();
+                            alert(`Failed to delete blog. Error: ${errorMessage}`);
+                        }
+                    } catch (error) {
+                        console.error('Error deleting blog:', error.message);
+                        alert('Failed to delete blog. Please try again.');
+                    }
+                } else {
+                    alert('Deletion canceled.');
+                }
+            }
 </script>
 
 </body>

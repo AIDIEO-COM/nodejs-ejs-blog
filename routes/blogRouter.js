@@ -6,6 +6,7 @@ const path = require('path');
 const GetBlogs = require("../controllers/blog/GetBlogs");
 const GetBlog = require("../controllers/blog/GetBlog");
 const UpdateBlog = require("../controllers/blog/UpdateBlog");
+const DeleteBlog = require("../controllers/blog/DeleteBlog");
 
 // Create the 'post' table if it doesn't exist
 global.db.run(`
@@ -44,11 +45,11 @@ router.get("/blog/:id", GetBlog);
 // get all blogs
 router.get("/blog", GetBlogs);
 
-// // update category
+// update blog
 router.post("/blog/update/:id", upload, UpdateBlog);
 
-// // update category
-// router.post("/category/delete/:id", DeleteCategory);
+// delete a blog
+router.post("/blog/delete/:id", DeleteBlog);
 
 // Export the router object so index.js can access it
 module.exports = router;
