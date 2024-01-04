@@ -1,13 +1,12 @@
-<script>
+<script type="">
+
+    // ck editor configure
     ClassicEditor
         .create(document.querySelector('#editor'))
         .catch(error => {
             console.error(error);
         });
-</script>
 
-
-<script type="">
   //Javascript to toggle the menu
     document.getElementById('nav-toggle').onclick = function () {
         document.getElementById("nav-content").classList.toggle("hidden");

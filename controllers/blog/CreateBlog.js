@@ -1,5 +1,5 @@
 
-const CreatePost = async (req, res) => {
+const CreateBlog = async (req, res) => {
     try {
         const { title, author, description, category_id } = req.body;
         const sql = "INSERT INTO blog (title, author, image, content, category_id) VALUES (?, ?, ?, ?, ?)";
@@ -31,4 +31,4 @@ const CreatePost = async (req, res) => {
     }
 }
 
-module.exports = CreatePost
+module.exports = CreateBlog

@@ -1,8 +1,9 @@
 const express = require("express");
 const multer = require("multer");
-const CreatePost = require("../controllers/post/CreatePost");
+const CreateBlog = require("../controllers/blog/CreateBlog");
 const router = express.Router();
 const path = require('path');
+const GetBlogs = require("../controllers/blog/GetBlogs");
 
 // Create the 'post' table if it doesn't exist
 global.db.run(`
@@ -10,7 +11,7 @@ global.db.run(`
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         title TEXT NOT NULL,
         author TEXT NOT NULL,
-        description TEXT NOT NULL,
+        content TEXT NOT NULL,
         image TEXT NOT NULL,
         category_id INTEGER NOT NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -33,13 +34,13 @@ let upload = multer({
 
 
 // create a post
-router.post("/blog", upload, CreatePost);
+router.post("/blog", upload, CreateBlog);
 
 // get single category
 // router.get("/category/:id", GetCategory);
 
-// // get all categories
-// router.get("/category", GetCategories);
+// get all blogs
+router.get("/blog", GetBlogs);
 
 // // update category
 // router.post("/category/update/:id", UpdateCategory);

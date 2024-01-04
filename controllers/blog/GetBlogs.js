@@ -1,7 +1,7 @@
 
-const GetCategories = async (req, res) => {
+const GetBlogs = async (req, res) => {
     try {
-        const sql = "SELECT * FROM category";
+        const sql = "SELECT * FROM blog";
 
         global.db.all(sql, [], (err, rows) => {
             if (err) {
@@ -29,4 +29,4 @@ const GetCategories = async (req, res) => {
     }
 }
 
-module.exports = GetCategories
+module.exports = GetBlogs

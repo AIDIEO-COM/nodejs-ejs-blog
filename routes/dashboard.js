@@ -2,6 +2,8 @@ const express = require("express");
 const axios = require('axios');
 const config = require("../utils/config");
 const router = express.Router();
+const { convert } = require('html-to-text')
+const moment = require('moment')
 
 // dashboard page
 router.get("/dashboard", (req, res) => {
@@ -50,10 +52,17 @@ router.get("/category/edit/:id", async (req, res) => {
 // posts view page
 router.get("/blogs", async (req, res) => {
     try {
+
+        const response = await axios.get(`${config.URL}api/v1/blog`);
+        const apiData = response.data;
+
         // Render the EJS template and pass data to it
         res.render("dashboard/blog/blogs.ejs", {
             url: req.protocol + "://" + req.headers.host,
             title: 'Dashboard | Blogs',
+            datas: apiData.data,
+            convert: convert,
+            moment: moment,
         });
     } catch (error) {
         console.error('Error fetching data from API:', error.message);
