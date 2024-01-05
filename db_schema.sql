@@ -1,5 +1,5 @@
 -- This makes sure that foreign_key constraints are observed and that errors will be thrown for violations
-PRAGMA foreign_keys = ON;
+-- PRAGMA foreign_keys = ON;
 
 BEGIN TRANSACTION;
 
@@ -12,6 +12,11 @@ BEGIN TRANSACTION;
 
 -- SELECT * FROM category;
 
-SELECT * FROM blog;
+-- SELECT * FROM blog;
+
+SELECT * FROM users;
+
+-- DROP TABLE users;
+
 
 COMMIT;

@@ -60,6 +60,7 @@ const loginRoutes = require('./routes/login');
 const dashboardRoutes = require('./routes/dashboard');
 const categoryRouter = require('./routes/categoryRouter');
 const blogRouter = require('./routes/blogRouter');
+const authRouter = require('./routes/authRouter');
 
 // ejs routes
 app.use('/', loginRoutes);
@@ -69,6 +70,7 @@ app.use('/users', usersRoutes);
 // api routes
 app.use('/api/v1/', categoryRouter);
 app.use('/api/v1/', blogRouter);
+app.use('/api/v1/', authRouter);
 
 // files route
 app.use('/public', express.static('public'))
