@@ -13,7 +13,7 @@ const router = express.Router();
 const { convert } = require('html-to-text')
 const moment = require('moment')
 const axios = require('axios');
-const config = require("../utils/config");
+const config = require("../../utils/config");
 
 /**
  * @desc Displays a home page

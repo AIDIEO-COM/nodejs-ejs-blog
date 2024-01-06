@@ -8,7 +8,8 @@ const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
 const config = require('./utils/config');
-const session = require("express-session")
+const connectDB = require('./utils/database');
+const session = require("express-session");
 
 const app = express();
 var bodyParser = require("body-parser");
@@ -37,46 +38,20 @@ app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Set up SQLite
-// Items in the global namespace are accessible throught out the node application
-const sqlite3 = require('sqlite3').verbose();
-global.db = new sqlite3.Database('./database.db', function (err) {
-    if (err) {
-        console.error(err);
-        process.exit(1); // bail out we can't connect to the DB
-    } else {
-        console.log("Database connected");
-        global.db.run("PRAGMA foreign_keys=ON"); // tell SQLite to pay attention to foreign key constraints
-    }
-});
-
-// Handle requests to the home page 
-// app.get('/', (req, res) => {
-//     res.send('Hello World!')
-// });
+connectDB();
 
 // Add all the route handlers in usersRoutes to the app under the path /users
-const usersRoutes = require('./routes/users');
-const landingRoutes = require('./routes/landing');
-const dashboardRoutes = require('./routes/dashboard');
-const categoryRouter = require('./routes/categoryRouter');
-const blogRouter = require('./routes/blogRouter');
-const authRouter = require('./routes/authRouter');
+const routersFrontend = require('./routes/routesFrontend');
+const routersBackend = require('./routes/routesBackend');
 
-// ejs routes
-app.use('/', landingRoutes);
-app.use('/', dashboardRoutes);
-app.use('/users', usersRoutes);
-
-// api routes
-app.use('/api/v1/', categoryRouter);
-app.use('/api/v1/', blogRouter);
-app.use('/api/v1/', authRouter);
+// all routes
+app.use('/', routersFrontend);
+app.use('/api/v1', routersBackend);
 
 // files route
 app.use('/public', express.static('public'))
 
 // Make the web application listen for HTTP requests
 app.listen(config.PORT || 3000, () => {
-    // console.log(`Example app listening on port ${port}`)
     console.log(`Listening on port http://localhost:${config.PORT}`);
 })
