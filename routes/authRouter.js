@@ -2,12 +2,13 @@ const express = require("express");
 const Login = require("../controllers/auth/Login");
 const router = express.Router();
 const bcrypt = require('bcrypt');
+const config = require("../utils/config");
 
 // Sample data for initial insertion
 const userData = {
-    name: 'Admin',
-    email: 'admin@gmail.com',
-    password: 'abcabc'
+    name: config.ADMIN_NAME,
+    email: config.ADMIN_EMAIL,
+    password: config.ADMIN_PASS
 };
 
 // Create the 'post' table if it doesn't exist

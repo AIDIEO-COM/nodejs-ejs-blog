@@ -1,17 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="<%=url%>/output.css">
-</head>
-
-<body class="bg-slate-300">
+<%- include('../partials/header.ejs') -%>
 
 
-    <%- include('navbar.ejs') -%>
+    <%- include('../partials/navbar.ejs') -%>
 
         <div class="container mt-8 md:mt-24">
             <div class="px-8 py-6 bg-white rounded-md shadow-sm ">
@@ -21,13 +14,4 @@
             </div>
         </div>
 
-        <script>
-            //Javascript to toggle the menu
-            document.getElementById('nav-toggle').onclick = function () {
-                document.getElementById("nav-content").classList.toggle("hidden");
-            }
-        </script>
-
-</body>
-
-</html>
+        <%- include('../partials/footer.ejs') -%>

@@ -7,7 +7,7 @@ const moment = require('moment')
 
 // dashboard page
 router.get("/dashboard", (req, res) => {
-    res.render("dashboard/dashboard.ejs", {
+    res.render("dashboard/dashboard", {
         url: req.protocol + "://" + req.headers.host,
         title: 'Dashboard',
     });
@@ -20,7 +20,7 @@ router.get("/categories", async (req, res) => {
         const apiData = response.data;
 
         // Render the EJS template and pass data to it
-        res.render("dashboard/category/categories.ejs", {
+        res.render("dashboard/category/categories", {
             url: req.protocol + "://" + req.headers.host,
             title: 'Dashboard | Categories',
             datas: apiData.data
@@ -38,7 +38,7 @@ router.get("/category/edit/:id", async (req, res) => {
         const apiData = response.data;
 
         // Render the EJS template and pass data to it
-        res.render("dashboard/category/updateCategory.ejs", {
+        res.render("dashboard/category/updateCategory", {
             url: req.protocol + "://" + req.headers.host,
             title: 'Dashboard | Edit Category',
             data: apiData.data
@@ -57,7 +57,7 @@ router.get("/blogs", async (req, res) => {
         const apiData = response.data;
 
         // Render the EJS template and pass data to it
-        res.render("dashboard/blog/blogs.ejs", {
+        res.render("dashboard/blog/blogs", {
             url: req.protocol + "://" + req.headers.host,
             title: 'Dashboard | Blogs',
             datas: apiData.data,
@@ -78,7 +78,7 @@ router.get("/blog/add", async (req, res) => {
         const apiData = response.data;
 
         // Render the EJS template and pass data to it
-        res.render("dashboard/blog/addBlog.ejs", {
+        res.render("dashboard/blog/addBlog", {
             url: req.protocol + "://" + req.headers.host,
             title: 'Dashboard | Add Blog',
             categories: apiData.data
@@ -98,10 +98,8 @@ router.get("/blog/edit/:id", async (req, res) => {
         const responseCat = await axios.get(`${config.URL}api/v1/category`);
         const apiDataCat = responseCat.data;
 
-        console.log(apiData.data);
-
         // Render the EJS template and pass data to it
-        res.render("dashboard/blog/updateBlog.ejs", {
+        res.render("dashboard/blog/updateBlog", {
             url: req.protocol + "://" + req.headers.host,
             title: 'Dashboard | Edit Blog',
             data: apiData.data,

@@ -56,14 +56,14 @@ global.db = new sqlite3.Database('./database.db', function (err) {
 
 // Add all the route handlers in usersRoutes to the app under the path /users
 const usersRoutes = require('./routes/users');
-const loginRoutes = require('./routes/login');
+const landingRoutes = require('./routes/landing');
 const dashboardRoutes = require('./routes/dashboard');
 const categoryRouter = require('./routes/categoryRouter');
 const blogRouter = require('./routes/blogRouter');
 const authRouter = require('./routes/authRouter');
 
 // ejs routes
-app.use('/', loginRoutes);
+app.use('/', landingRoutes);
 app.use('/', dashboardRoutes);
 app.use('/users', usersRoutes);
 
@@ -74,7 +74,6 @@ app.use('/api/v1/', authRouter);
 
 // files route
 app.use('/public', express.static('public'))
-
 
 // Make the web application listen for HTTP requests
 app.listen(config.PORT || 3000, () => {
