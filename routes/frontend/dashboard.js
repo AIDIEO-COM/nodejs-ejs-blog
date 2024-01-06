@@ -10,25 +10,33 @@ const RequireLogin = require("../../middleware/RequireLogin");
 router.get("/dashboard", RequireLogin, (req, res) => {
 
     const user = req.session.user;
+    const isAuthenticated = req.session.isAuthenticated;
 
     res.render("dashboard/dashboard", {
         url: req.protocol + "://" + req.headers.host,
         title: 'Dashboard',
         user,
+        isAuthenticated
     });
 });
 
 // category view page
 router.get("/categories", RequireLogin, async (req, res) => {
     try {
+
+        const isAuthenticated = req.session.isAuthenticated;
+
         const response = await axios.get(`${config.URL}api/v1/category`);
         const apiData = response.data;
+
+        console.log(apiData);
 
         // Render the EJS template and pass data to it
         res.render("dashboard/category/categories", {
             url: req.protocol + "://" + req.headers.host,
             title: 'Dashboard | Categories',
-            datas: apiData.data
+            datas: apiData.data,
+            isAuthenticated
         });
     } catch (error) {
         console.error('Error fetching data from API:', error.message);
@@ -39,6 +47,9 @@ router.get("/categories", RequireLogin, async (req, res) => {
 // category update page
 router.get("/category/edit/:id", RequireLogin, async (req, res) => {
     try {
+
+        const isAuthenticated = req.session.isAuthenticated;
+
         const response = await axios.get(`${config.URL}api/v1/category/${req.params.id}`);
         const apiData = response.data;
 
@@ -46,7 +57,8 @@ router.get("/category/edit/:id", RequireLogin, async (req, res) => {
         res.render("dashboard/category/updateCategory", {
             url: req.protocol + "://" + req.headers.host,
             title: 'Dashboard | Edit Category',
-            data: apiData.data
+            data: apiData.data,
+            isAuthenticated
         });
     } catch (error) {
         console.error('Error fetching data from API:', error.message);
@@ -58,6 +70,8 @@ router.get("/category/edit/:id", RequireLogin, async (req, res) => {
 router.get("/blogs", RequireLogin, async (req, res) => {
     try {
 
+        const isAuthenticated = req.session.isAuthenticated;
+
         const response = await axios.get(`${config.URL}api/v1/blog`);
         const apiData = response.data;
 
@@ -68,6 +82,7 @@ router.get("/blogs", RequireLogin, async (req, res) => {
             datas: apiData.data,
             convert: convert,
             moment: moment,
+            isAuthenticated,
         });
     } catch (error) {
         console.error('Error fetching data from API:', error.message);
@@ -79,6 +94,8 @@ router.get("/blogs", RequireLogin, async (req, res) => {
 router.get("/blog/add", RequireLogin, async (req, res) => {
     try {
 
+        const isAuthenticated = req.session.isAuthenticated;
+
         const response = await axios.get(`${config.URL}api/v1/category`);
         const apiData = response.data;
 
@@ -86,7 +103,8 @@ router.get("/blog/add", RequireLogin, async (req, res) => {
         res.render("dashboard/blog/addBlog", {
             url: req.protocol + "://" + req.headers.host,
             title: 'Dashboard | Add Blog',
-            categories: apiData.data
+            categories: apiData.data,
+            isAuthenticated,
         });
     } catch (error) {
         console.error('Error fetching data from API:', error.message);
@@ -97,6 +115,9 @@ router.get("/blog/add", RequireLogin, async (req, res) => {
 // category update page
 router.get("/blog/edit/:id", RequireLogin, async (req, res) => {
     try {
+
+        const isAuthenticated = req.session.isAuthenticated;
+
         const response = await axios.get(`${config.URL}api/v1/blog/${req.params.id}`);
         const apiData = response.data;
 
@@ -109,7 +130,8 @@ router.get("/blog/edit/:id", RequireLogin, async (req, res) => {
             title: 'Dashboard | Edit Blog',
             data: apiData.data,
             categories: apiDataCat.data,
-            convert: convert
+            convert: convert,
+            isAuthenticated
         });
     } catch (error) {
         console.error('Error fetching data from API:', error.message);

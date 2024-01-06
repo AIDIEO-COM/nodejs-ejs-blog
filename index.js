@@ -10,9 +10,9 @@ const path = require('path');
 const config = require('./utils/config');
 const connectDB = require('./utils/database');
 const session = require("express-session");
+const bodyParser = require("body-parser");
 
 const app = express();
-var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(morgan("dev"));
@@ -20,10 +20,11 @@ app.use(morgan("dev"));
 // session setup
 app.use(session({
     secret: 'my secret key',
+    resave: false,
     saveUninitialized: true,
-    resave: false
 }))
 
+// Custom middleware to handle session messages
 app.use((req, res, next) => {
     res.locals.message = req.session.message;
     delete req.session.message;

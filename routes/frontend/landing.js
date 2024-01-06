@@ -14,12 +14,14 @@ const { convert } = require('html-to-text')
 const moment = require('moment')
 const axios = require('axios');
 const config = require("../../utils/config");
-const LoggedIn = require("../../middleware/LoggedIn");
+const LoggedIn = require("../../middleware/LoggedInn");
 
 /**
  * @desc Displays a home page
  */
 router.get("/", async (req, res) => {
+
+    const isAuthenticated = req.session.isAuthenticated;
 
     const response = await axios.get(`${config.URL}api/v1/blog`);
     const apiData = response.data;
@@ -30,6 +32,7 @@ router.get("/", async (req, res) => {
         datas: apiData.data,
         convert: convert,
         moment: moment,
+        isAuthenticated,
     });
 });
 
@@ -38,6 +41,9 @@ router.get("/", async (req, res) => {
  */
 router.get("/articale/:id", async (req, res) => {
     try {
+
+        const isAuthenticated = req.session.isAuthenticated;
+
         const response = await axios.get(`${config.URL}api/v1/blog/${req.params.id}`);
         const apiData = response.data;
 
@@ -47,7 +53,8 @@ router.get("/articale/:id", async (req, res) => {
             title: `Blog Details | ${apiData.data.title}`,
             data: apiData.data,
             moment: moment,
-            convert: convert
+            convert: convert,
+            isAuthenticated
         });
     } catch (error) {
         console.error('Error fetching data from API:', error.message);

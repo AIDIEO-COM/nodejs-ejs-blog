@@ -15,6 +15,8 @@ const GetCategories = async (req, res) => {
                 });
             }
 
+            console.log(rows);
+
             return res.json({
                 status: 200,
                 success: true,
@@ -23,8 +25,9 @@ const GetCategories = async (req, res) => {
         });
     } catch (error) {
         return res.json({
-            status: 400,
+            status: 500,
             success: false,
+            message: 'Server error!',
         });
     }
 }

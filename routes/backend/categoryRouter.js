@@ -6,14 +6,6 @@ const UpdateCategory = require("../../controllers/category/UpdateCategory");
 const DeleteCategory = require("../../controllers/category/DeleteCategory");
 const router = express.Router();
 
-// Create the 'category' table if it doesn't exist
-global.db.run(`
-    CREATE TABLE IF NOT EXISTS category (
-        id INTEGER PRIMARY KEY,
-        name TEXT UNIQUE NOT NULL
-    )
-`);
-
 // post a new category
 router.post("/", CreateCategory);
 
