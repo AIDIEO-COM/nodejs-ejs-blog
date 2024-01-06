@@ -1,0 +1,13 @@
+<div>
+    <% if(message && message.success) { %>
+        <p id="successMessage" class="text-white bg-success w-full p-2 rounded-md mb-3">
+            <%= message.message %>
+        </p>
+        <% } %>
+
+            <% if(message && !message.success) { %>
+                <p id="errorMessage" class="text-white bg-error w-full p-2 rounded-md mb-3">
+                    <%= message.message %>
+                </p>
+                <% } %>
+</div>

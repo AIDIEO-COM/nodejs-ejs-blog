@@ -14,6 +14,7 @@ const { convert } = require('html-to-text')
 const moment = require('moment')
 const axios = require('axios');
 const config = require("../../utils/config");
+const LoggedIn = require("../../middleware/LoggedIn");
 
 /**
  * @desc Displays a home page
@@ -57,7 +58,7 @@ router.get("/articale/:id", async (req, res) => {
 /**
  * @desc Displays a login page
  */
-router.get("/login", (req, res) => {
+router.get("/login", LoggedIn, (req, res) => {
     res.render("landing/login", {
         url: req.protocol + "://" + req.headers.host
     });

@@ -3,18 +3,23 @@ const axios = require('axios');
 const config = require("../../utils/config");
 const router = express.Router();
 const { convert } = require('html-to-text')
-const moment = require('moment')
+const moment = require('moment');
+const RequireLogin = require("../../middleware/RequireLogin");
 
 // dashboard page
-router.get("/dashboard", (req, res) => {
+router.get("/dashboard", RequireLogin, (req, res) => {
+
+    const user = req.session.user;
+
     res.render("dashboard/dashboard", {
         url: req.protocol + "://" + req.headers.host,
         title: 'Dashboard',
+        user,
     });
 });
 
 // category view page
-router.get("/categories", async (req, res) => {
+router.get("/categories", RequireLogin, async (req, res) => {
     try {
         const response = await axios.get(`${config.URL}api/v1/category`);
         const apiData = response.data;
@@ -32,7 +37,7 @@ router.get("/categories", async (req, res) => {
 });
 
 // category update page
-router.get("/category/edit/:id", async (req, res) => {
+router.get("/category/edit/:id", RequireLogin, async (req, res) => {
     try {
         const response = await axios.get(`${config.URL}api/v1/category/${req.params.id}`);
         const apiData = response.data;
@@ -50,7 +55,7 @@ router.get("/category/edit/:id", async (req, res) => {
 });
 
 // blogs view page
-router.get("/blogs", async (req, res) => {
+router.get("/blogs", RequireLogin, async (req, res) => {
     try {
 
         const response = await axios.get(`${config.URL}api/v1/blog`);
@@ -71,7 +76,7 @@ router.get("/blogs", async (req, res) => {
 });
 
 // add blog view page
-router.get("/blog/add", async (req, res) => {
+router.get("/blog/add", RequireLogin, async (req, res) => {
     try {
 
         const response = await axios.get(`${config.URL}api/v1/category`);
@@ -90,7 +95,7 @@ router.get("/blog/add", async (req, res) => {
 });
 
 // category update page
-router.get("/blog/edit/:id", async (req, res) => {
+router.get("/blog/edit/:id", RequireLogin, async (req, res) => {
     try {
         const response = await axios.get(`${config.URL}api/v1/blog/${req.params.id}`);
         const apiData = response.data;
