@@ -4,6 +4,7 @@ const Logout = async (req, res) => {
         // setting user info null
         req.session.user = null;
         req.session.isAuthenticated = false;
+        req.session.token = null;
 
         // info message
         req.session.message = {

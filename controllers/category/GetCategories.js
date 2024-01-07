@@ -15,8 +15,6 @@ const GetCategories = async (req, res) => {
                 });
             }
 
-            console.log(rows);
-
             return res.json({
                 status: 200,
                 success: true,

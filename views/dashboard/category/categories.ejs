@@ -104,10 +104,10 @@
                                         <% } %>
                         </div>
 
-
-
-
                         <form action="/api/v1/category" method="post" class="bg-slate-200 p-4 rounded-md">
+
+                            <input type="hidden" name="token" value="<%= token %>" />
+
                             <div class="flex flex-col gap-1 mb-3">
                                 <label for="name" class="text-slate-500">Category Name</label>
                                 <input type="text" name="name" id="name" required
@@ -125,5 +125,35 @@
             </div>
         </div>
 
+        <script type="">
+                async function deleteCategory(id) {
+                const confirmDelete = window.confirm('Are you sure you want to delete this category?');
+
+                if (confirmDelete) {
+                    try {
+                        const response = await fetch(`<%=url%>/api/v1/category/delete/${id}`, {
+                            method: 'POST',
+                            headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer <%= token %>`,
+    },
+                        });
+
+                        if (response.ok) {
+                            alert('Category deleted successfully.');
+                            location.reload(); // Optional: Update the UI without reloading the page
+                        } else {
+                            const errorMessage = await response.text();
+                            alert(`Failed to delete category. Error: ${errorMessage}`);
+                        }
+                    } catch (error) {
+                        console.error('Error deleting category:', error.message);
+                        alert('Failed to delete category. Please try again.');
+                    }
+                } else {
+                    alert('Deletion canceled.');
+                }
+            }
+        </script>
 
         <%- include('../../partials/footer.ejs') -%>

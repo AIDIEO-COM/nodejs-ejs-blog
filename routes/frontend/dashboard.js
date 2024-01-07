@@ -5,6 +5,7 @@ const router = express.Router();
 const { convert } = require('html-to-text')
 const moment = require('moment');
 const RequireLogin = require("../../middleware/RequireLogin");
+const { axiosGET } = require("../../utils/axios/axios");
 
 // dashboard page
 router.get("/dashboard", RequireLogin, (req, res) => {
@@ -24,19 +25,20 @@ router.get("/dashboard", RequireLogin, (req, res) => {
 router.get("/categories", RequireLogin, async (req, res) => {
     try {
 
+        // get logged value
         const isAuthenticated = req.session.isAuthenticated;
+        const token = req.session.token;
 
-        const response = await axios.get(`${config.URL}api/v1/category`);
-        const apiData = response.data;
-
-        console.log(apiData);
+        // get the categories
+        const response = await axiosGET('category', token);
 
         // Render the EJS template and pass data to it
         res.render("dashboard/category/categories", {
             url: req.protocol + "://" + req.headers.host,
             title: 'Dashboard | Categories',
-            datas: apiData.data,
-            isAuthenticated
+            datas: response,
+            isAuthenticated,
+            token,
         });
     } catch (error) {
         console.error('Error fetching data from API:', error.message);
@@ -48,17 +50,20 @@ router.get("/categories", RequireLogin, async (req, res) => {
 router.get("/category/edit/:id", RequireLogin, async (req, res) => {
     try {
 
+        // get logged value
         const isAuthenticated = req.session.isAuthenticated;
+        const token = req.session.token;
 
-        const response = await axios.get(`${config.URL}api/v1/category/${req.params.id}`);
-        const apiData = response.data;
+        // get the specific category
+        const response = await axiosGET(`category/${req.params.id}`, token);
 
         // Render the EJS template and pass data to it
         res.render("dashboard/category/updateCategory", {
             url: req.protocol + "://" + req.headers.host,
             title: 'Dashboard | Edit Category',
-            data: apiData.data,
-            isAuthenticated
+            data: response,
+            isAuthenticated,
+            token,
         });
     } catch (error) {
         console.error('Error fetching data from API:', error.message);
@@ -70,19 +75,22 @@ router.get("/category/edit/:id", RequireLogin, async (req, res) => {
 router.get("/blogs", RequireLogin, async (req, res) => {
     try {
 
+        // get logged value
         const isAuthenticated = req.session.isAuthenticated;
+        const token = req.session.token;
 
-        const response = await axios.get(`${config.URL}api/v1/blog`);
-        const apiData = response.data;
+        // get blogs
+        const response = await axiosGET(`blog`, token);
 
         // Render the EJS template and pass data to it
         res.render("dashboard/blog/blogs", {
             url: req.protocol + "://" + req.headers.host,
             title: 'Dashboard | Blogs',
-            datas: apiData.data,
+            datas: response,
             convert: convert,
             moment: moment,
             isAuthenticated,
+            token,
         });
     } catch (error) {
         console.error('Error fetching data from API:', error.message);
@@ -94,17 +102,20 @@ router.get("/blogs", RequireLogin, async (req, res) => {
 router.get("/blog/add", RequireLogin, async (req, res) => {
     try {
 
+        // get logged value
         const isAuthenticated = req.session.isAuthenticated;
+        const token = req.session.token;
 
-        const response = await axios.get(`${config.URL}api/v1/category`);
-        const apiData = response.data;
+        // get blogs
+        const response = await axiosGET(`category`, token);
 
         // Render the EJS template and pass data to it
         res.render("dashboard/blog/addBlog", {
             url: req.protocol + "://" + req.headers.host,
             title: 'Dashboard | Add Blog',
-            categories: apiData.data,
+            categories: response,
             isAuthenticated,
+            token,
         });
     } catch (error) {
         console.error('Error fetching data from API:', error.message);
@@ -116,22 +127,25 @@ router.get("/blog/add", RequireLogin, async (req, res) => {
 router.get("/blog/edit/:id", RequireLogin, async (req, res) => {
     try {
 
+        // get logged value
         const isAuthenticated = req.session.isAuthenticated;
+        const token = req.session.token;
 
-        const response = await axios.get(`${config.URL}api/v1/blog/${req.params.id}`);
-        const apiData = response.data;
+        // get the specific blog
+        const response = await axiosGET(`blog/${req.params.id}`, token);
 
-        const responseCat = await axios.get(`${config.URL}api/v1/category`);
-        const apiDataCat = responseCat.data;
+        // get categories
+        const responseCat = await axiosGET('category', token);
 
         // Render the EJS template and pass data to it
         res.render("dashboard/blog/updateBlog", {
             url: req.protocol + "://" + req.headers.host,
             title: 'Dashboard | Edit Blog',
-            data: apiData.data,
-            categories: apiDataCat.data,
+            data: response,
+            categories: responseCat,
             convert: convert,
-            isAuthenticated
+            isAuthenticated,
+            token,
         });
     } catch (error) {
         console.error('Error fetching data from API:', error.message);

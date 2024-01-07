@@ -36,6 +36,8 @@
                             <form action="/api/v1/blog/update/<%= data.id %>" method="post"
                                 enctype="multipart/form-data" class="bg-slate-200 p-4 rounded-md">
 
+                                <input type="hidden" name="token" value="<%= token %>" />
+
                                 <div class="flex flex-col gap-1 mb-3">
                                     <label for="title" class="text-slate-500">Title</label>
                                     <input type="text" name="title" id="title" required value="<%= data.title %>"

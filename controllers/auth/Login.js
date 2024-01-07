@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const generateToken = require('../../utils/generateToken');
 
 const Login = async (req, res) => {
     try {
@@ -37,12 +38,16 @@ const Login = async (req, res) => {
                 return res.redirect('/login');
             }
 
+            // token
+            const token = generateToken(row, false);
+
             // Set user information in the session
             req.session.user = {
                 name: row.name,
                 email: row.email,
             };
             req.session.isAuthenticated = true;
+            req.session.token = token;
 
             req.session.message = {
                 success: true,
