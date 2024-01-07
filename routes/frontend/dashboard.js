@@ -8,16 +8,23 @@ const RequireLogin = require("../../middleware/RequireLogin");
 const { axiosGET } = require("../../utils/axios/axios");
 
 // dashboard page
-router.get("/dashboard", RequireLogin, (req, res) => {
+router.get("/dashboard", RequireLogin, async (req, res) => {
 
+    // get logged value
     const user = req.session.user;
     const isAuthenticated = req.session.isAuthenticated;
+    const token = req.session.token;
+
+    // get the categories
+    const response = await axiosGET('profile', token);
 
     res.render("dashboard/dashboard", {
         url: req.protocol + "://" + req.headers.host,
         title: 'Dashboard',
         user,
-        isAuthenticated
+        isAuthenticated,
+        token,
+        data: response,
     });
 });
 

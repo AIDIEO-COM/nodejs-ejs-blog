@@ -19,7 +19,7 @@ app.use(morgan("dev"));
 
 // session setup
 app.use(session({
-    secret: 'my secret key',
+    secret: config.TOKEN_SECRET,
     resave: false,
     saveUninitialized: true,
 }))
