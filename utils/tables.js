@@ -33,8 +33,8 @@ VALUES (?, ?, ?)
 `
 
 module.exports = {
-    usersTableQuery,
-    blogTableQuery,
-    categoryTableQuery,
-    userInsertQuery
+  usersTableQuery,
+  blogTableQuery,
+  categoryTableQuery,
+  userInsertQuery
 }

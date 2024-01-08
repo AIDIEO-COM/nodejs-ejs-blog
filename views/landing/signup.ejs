@@ -4,21 +4,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Signup</title>
     <link rel="stylesheet" href="<%=url%>/output.css">
 </head>
 
 <body>
     <div class="register w-screen h-screen bg-slate-300 flex justify-center items-center">
         <div class="w-[350px] px-8 py-6 bg-white rounded-md shadow-sm ">
-            <h2 class="text-2xl font-bold text-center text-slate-500">Login</h2>
+            <h2 class="text-2xl font-bold text-center text-slate-500">Signup</h2>
 
             <div class="mt-2">
                 <%- include('../partials/messageInfo.ejs') -%>
             </div>
 
 
-            <form action="/api/v1/auth/login" method="post">
+            <form action="/api/v1/auth/signup" method="post">
+
+                <div class="flex flex-col gap-1 mb-3">
+                    <label for="name" class="text-slate-500">Name</label>
+                    <input type="text" name="name" id="name" required autocomplete="off"
+                        class="px-3 py-2 outline-0 border border-stale-500 bg-[#f9f9f9] rounded focus:border-teal-400" />
+                </div>
 
                 <div class="flex flex-col gap-1 mb-3">
                     <label for="email" class="text-slate-500">Email</label>
@@ -33,12 +39,12 @@
                 </div>
 
                 <button type="submit"
-                    class="px-5 w-full py-2 text-white rounded-sm bg-primary-700 hover:bg-primary trans">Login</button>
+                    class="px-5 w-full py-2 text-white rounded-sm bg-primary-700 hover:bg-primary trans">Signup</button>
 
                 <div class="mt-4 text-center">
-                    <p class="mb-2">Not registred? <a
+                    <p class="mb-2">Already a member? <a
                             class=" text-primary-700 no-underline hover:text-primary hover:underline trans"
-                            href="/signup">Create Account</a></p>
+                            href="/login">Login here</a></p>
 
                     <a class=" text-primary-700 no-underline hover:text-primary hover:underline trans" href="/">Back
                         To

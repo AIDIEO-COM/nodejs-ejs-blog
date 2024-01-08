@@ -71,6 +71,15 @@ router.get("/login", LoggedIn, (req, res) => {
     });
 });
 
+/**
+ * @desc Displays a login page
+ */
+router.get("/signup", LoggedIn, (req, res) => {
+    res.render("landing/signup", {
+        url: req.protocol + "://" + req.headers.host
+    });
+});
+
 
 // Export the router object so index.js can access it
 module.exports = router;

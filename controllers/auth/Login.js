@@ -39,7 +39,7 @@ const Login = async (req, res) => {
             }
 
             // token
-            const token = generateToken(row, false);
+            const token = generateToken(row);
 
             // Set user information in the session
             req.session.user = {

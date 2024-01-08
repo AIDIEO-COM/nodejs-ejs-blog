@@ -1,6 +1,4 @@
 const express = require("express");
-const axios = require('axios');
-const config = require("../../utils/config");
 const router = express.Router();
 const { convert } = require('html-to-text')
 const moment = require('moment');
