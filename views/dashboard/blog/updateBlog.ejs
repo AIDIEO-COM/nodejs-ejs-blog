@@ -91,7 +91,9 @@
                 // Check if CKEditor instance already exists
                 if (typeof ClassicEditor !== 'undefined') {
                     ClassicEditor
-                        .create(document.querySelector('#editor'))
+                        .create(document.querySelector('#editor'), {
+                            toolbar: ['undo', 'redo', 'bold', 'italic', 'numberedList', 'bulletedList']
+                        })
                         .then(editor => {
                             // Assuming 'data.content' contains the initial content
                             editor.setData(`<%= convert(data.content) %>`);

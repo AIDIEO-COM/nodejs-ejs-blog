@@ -2,7 +2,9 @@
 
   // ck editor configure
     ClassicEditor
-        .create(document.querySelector('#editor'))
+        .create(document.querySelector('#editor'), {
+        toolbar: [ 'undo', 'redo', 'bold', 'italic', 'numberedList', 'bulletedList' ]
+    })
         .catch(error => {
             console.error(error);
         });

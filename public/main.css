@@ -35,3 +35,8 @@ tbody tr td:last-child {
     border-top-right-radius: 5px;
     border-bottom-right-radius: 0px;
 }
+
+/* Hide the image upload button */
+/* .ck-file-dialog-button {
+    display: none !important;
+} */
