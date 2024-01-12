@@ -22,8 +22,10 @@ const blogTableQuery = `
       content TEXT NOT NULL,
       image TEXT NOT NULL,
       category_id INTEGER NOT NULL,
+      user_id INTEGER NOT NULL,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (category_id) REFERENCES category(id)
+      FOREIGN KEY (user_id) REFERENCES users(id)
   )
 `;
 

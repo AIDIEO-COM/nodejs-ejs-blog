@@ -12,11 +12,21 @@ BEGIN TRANSACTION;
 
 -- SELECT * FROM category;
 
--- SELECT * FROM blog;
+SELECT * FROM blog;
+
+-- DELETE FROM users WHERE id = 2;
+-- DELETE FROM users WHERE id = 3;
+-- DELETE FROM users WHERE id = 4;
+-- DELETE FROM users WHERE id = 5;
+-- DELETE FROM users WHERE id = 6;
+-- DELETE FROM users WHERE id = 7;
+-- DELETE FROM users WHERE id = 8;
 
 -- SELECT * FROM users;
 
-DROP TABLE users;
+-- DROP TABLE users;
+-- DROP TABLE category;
+-- DROP TABLE blog;
 
 
 COMMIT;

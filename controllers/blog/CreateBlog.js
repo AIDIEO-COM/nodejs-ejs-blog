@@ -1,10 +1,13 @@
 
 const CreateBlog = async (req, res) => {
+
+    const userId = req.user.id;
+
     try {
         const { title, author, description, category_id } = req.body;
-        const sql = "INSERT INTO blog (title, author, image, content, category_id) VALUES (?, ?, ?, ?, ?)";
+        const sql = "INSERT INTO blog (title, author, image, content, user_id, category_id) VALUES (?, ?, ?, ?, ?, ?)";
 
-        global.db.run(sql, [title, author, req.file.filename, description, category_id], (err) => {
+        global.db.run(sql, [title, author, req.file.filename, description, userId, category_id], (err) => {
             if (err) {
                 req.session.message = {
                     success: false,

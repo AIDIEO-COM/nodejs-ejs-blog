@@ -10,6 +10,7 @@ const UpdateBlog = require("../../controllers/blog/UpdateBlog");
 const DeleteBlog = require("../../controllers/blog/DeleteBlog");
 
 const auth = require("../../middleware/auth");
+const GetBlogsByAuthUser = require("../../controllers/blog/GetBlogsByAuthUser");
 
 let storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -27,6 +28,9 @@ let upload = multer({
 
 // create a blog
 router.post("/", upload, auth(true), CreateBlog);
+
+// get all blogs by auth user
+router.get("/by-auth-user", auth(), GetBlogsByAuthUser);
 
 // get single blog
 router.get("/:id", GetBlog);
