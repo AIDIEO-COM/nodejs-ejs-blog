@@ -6,38 +6,26 @@ const DeleteCategory = async (req, res) => {
 
         global.db.run(sql, [categoryId], function (err) {
             if (err) {
-                req.session.message = {
+                return res.status(500).json({
+                    status: 500,
                     success: false,
-                    type: 'error',
-                    message: err.message,
-                }
-                return res.redirect('/categories');
-            }
-
-            if (this.changes === 0) {
-                return res.json({
-                    status: 300,
-                    success: false,
-                    error: {
-                        message: "Category not found",
-                    },
+                    message: 'Category not found or cannot be deleted due to references.'
                 });
             }
 
-            req.session.message = {
+            return res.status(200).json({
+                status: 200,
                 success: true,
-                type: 'success',
                 message: 'Category deleted successfully!'
-            }
-            return res.redirect('/categories');
+            });
         });
+
     } catch (error) {
-        req.session.message = {
+        return res.status(500).json({
+            status: 500,
             success: false,
-            type: 'error',
-            message: 'Internal server error!'
-        }
-        res.redirect('/categories');
+            message: 'Server error!',
+        });
     }
 };
 

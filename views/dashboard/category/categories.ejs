@@ -139,12 +139,12 @@
     },
                         });
 
-                        if (response.ok) {
+                        if (response.ok && response.status === 200) {
                             alert('Category deleted successfully.');
                             location.reload(); // Optional: Update the UI without reloading the page
                         } else {
-                            const errorMessage = await response.text();
-                            alert(`Failed to delete category. Error: ${errorMessage}`);
+                            const errorMessage = await response.json();
+                            alert(`Failed to delete category. Error: ${errorMessage.message}`);
                         }
                     } catch (error) {
                         console.error('Error deleting category:', error.message);
