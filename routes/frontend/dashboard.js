@@ -84,12 +84,8 @@ router.get("/blogs", RequireLogin, async (req, res) => {
         const isAuthenticated = req.session.isAuthenticated;
         const token = req.session.token;
 
-        console.log(token);
-
         // get blogs
         const response = await axiosGET(`blog/by-auth-user`, token);
-
-        console.log(response);
 
         // Render the EJS template and pass data to it
         res.render("dashboard/blog/blogs", {

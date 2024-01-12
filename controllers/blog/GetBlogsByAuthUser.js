@@ -3,8 +3,6 @@ const GetBlogsByAuthUser = async (req, res) => {
 
     const userId = req.user.id;
 
-    console.log(userId);
-
     try {
         const sql = `
         SELECT blog.*, category.name AS category_name
